@@ -1,0 +1,5 @@
+C:\Users\Kiba Urufu\Documents\Visual Studio 2010\Projects\PPCCAutoAuth\ManagedWifi\bin\Debug\ManagedWifi.dll
+C:\Users\Kiba Urufu\Documents\Visual Studio 2010\Projects\PPCCAutoAuth\ManagedWifi\bin\Debug\ManagedWifi.pdb
+C:\Users\Kiba Urufu\Documents\Visual Studio 2010\Projects\PPCCAutoAuth\ManagedWifi\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Kiba Urufu\Documents\Visual Studio 2010\Projects\PPCCAutoAuth\ManagedWifi\obj\Debug\ManagedWifi.dll
+C:\Users\Kiba Urufu\Documents\Visual Studio 2010\Projects\PPCCAutoAuth\ManagedWifi\obj\Debug\ManagedWifi.pdb

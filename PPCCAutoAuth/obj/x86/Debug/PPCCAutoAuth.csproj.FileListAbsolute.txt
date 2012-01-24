@@ -1,0 +1,7 @@
+c:\users\kiba urufu\documents\visual studio 2010\Projects\PPCCAutoAuth\PPCCAutoAuth\bin\Debug\PPCCAutoAuth.exe
+c:\users\kiba urufu\documents\visual studio 2010\Projects\PPCCAutoAuth\PPCCAutoAuth\bin\Debug\PPCCAutoAuth.pdb
+c:\users\kiba urufu\documents\visual studio 2010\Projects\PPCCAutoAuth\PPCCAutoAuth\bin\Debug\ManagedWifi.dll
+c:\users\kiba urufu\documents\visual studio 2010\Projects\PPCCAutoAuth\PPCCAutoAuth\bin\Debug\ManagedWifi.pdb
+c:\users\kiba urufu\documents\visual studio 2010\Projects\PPCCAutoAuth\PPCCAutoAuth\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\kiba urufu\documents\visual studio 2010\Projects\PPCCAutoAuth\PPCCAutoAuth\obj\x86\Debug\PPCCAutoAuth.exe
+c:\users\kiba urufu\documents\visual studio 2010\Projects\PPCCAutoAuth\PPCCAutoAuth\obj\x86\Debug\PPCCAutoAuth.pdb

@@ -5,3 +5,7 @@ c:\users\kiba urufu\documents\visual studio 2010\Projects\PPCCAutoAuth\PPCCAutoA
 c:\users\kiba urufu\documents\visual studio 2010\Projects\PPCCAutoAuth\PPCCAutoAuth\obj\x86\Debug\ResolveAssemblyReference.cache
 c:\users\kiba urufu\documents\visual studio 2010\Projects\PPCCAutoAuth\PPCCAutoAuth\obj\x86\Debug\PPCCAutoAuth.exe
 c:\users\kiba urufu\documents\visual studio 2010\Projects\PPCCAutoAuth\PPCCAutoAuth\obj\x86\Debug\PPCCAutoAuth.pdb
+C:\Users\Kiba Urufu\Documents\Visual Studio 2010\Projects\PPCCAutoAuth\PPCCAutoAuth\bin\Debug\PPCCAutoAuth.exe.manifest
+C:\Users\Kiba Urufu\Documents\Visual Studio 2010\Projects\PPCCAutoAuth\PPCCAutoAuth\bin\Debug\PPCCAutoAuth.application
+C:\Users\Kiba Urufu\Documents\Visual Studio 2010\Projects\PPCCAutoAuth\PPCCAutoAuth\obj\x86\Debug\PPCCAutoAuth.exe.manifest
+C:\Users\Kiba Urufu\Documents\Visual Studio 2010\Projects\PPCCAutoAuth\PPCCAutoAuth\obj\x86\Debug\PPCCAutoAuth.application

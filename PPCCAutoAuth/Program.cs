@@ -47,9 +47,30 @@ namespace PPCCAutoAuth
 
 				Console.WriteLine();
 				spinnerAni = 0;
+				Int16 waitTime = 0;
 				Console.Write("Connected to PPCCStudents, waiting for IP...|");
-				while (wifi.NetworkInterface.GetIPProperties().GatewayAddresses.Count < 1) { Spinner(44); System.Threading.Thread.Sleep(100); }
+				while (!hasIP() && waitTime < 2000) { Spinner(44); System.Threading.Thread.Sleep(100); waitTime += 100; }
 				Console.WriteLine();
+				if (waitTime == 2000) //It's taking longer than usual for an IP
+				{
+					Console.ForegroundColor = ConsoleColor.Yellow;
+					Console.WriteLine("* It's taking longer than usual to get an IP...");
+					Console.ForegroundColor = ConsoleColor.Gray;
+					Console.Write("Still waiting for an IP...|");
+					while (!hasIP() && waitTime < 5000) { Spinner(26); System.Threading.Thread.Sleep(100); waitTime += 100; }
+					Console.WriteLine();
+				}
+
+				if (!hasIP()) //If we don't have an IP by now, then quit.
+				{
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine("!-- It took too long to get an IP --! Quitting...");
+					Console.ForegroundColor = ConsoleColor.Gray;
+					Console.WriteLine("Press any key to exit...");
+					Console.ReadKey();
+					closing = true;
+					break;
+				}
 
 				if (!authenticated)
 				{
@@ -94,10 +115,11 @@ namespace PPCCAutoAuth
 		{
 			if (HTTPS)
 			{
-				try
-				{
+#if (!DEBUG)
+				try{
+#endif
 					WebRequest req = WebRequest.Create("https://1.1.1.1/login.html");
-					req.Timeout = 5000;
+					req.Timeout = 2000;
 					req.Method = "POST";
 					req.AuthenticationLevel = System.Net.Security.AuthenticationLevel.None;
 					ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ValidateRemoteCertificate);
@@ -130,11 +152,10 @@ namespace PPCCAutoAuth
 						closing = (tryAgain.ToLower() == "no" || tryAgain.ToLower() == "n") ? true : false;
 						sleepTime = 0;
 					}
-				}
-				catch (Exception e)
-				{
-					if (!(e.GetBaseException() is WebException))
-					{
+				
+#if (!DEBUG)
+				} catch (Exception e) {
+					if (!(e.GetBaseException() is WebException)) {
 						Console.ForegroundColor = ConsoleColor.Red;
 						Console.WriteLine("!-- Unable to authenticate --!");
 						Console.ForegroundColor = ConsoleColor.Gray;
@@ -153,13 +174,15 @@ namespace PPCCAutoAuth
 						Console.ReadKey();
 					}
 				}
+#endif
 			}
 			else
 			{
-				try
-				{
+#if (!DEBUG)
+				try {
+#endif
 					WebRequest req = WebRequest.Create("http://1.1.1.1/login.html?buttonClicked=4&redirect_url=www.google.com%2F&err_flag=0&email=drgn-hearted%40hotmail.com");
-					req.Timeout = 5000;
+					req.Timeout = 3000;
 					WebResponse resp = req.GetResponse();
 					StreamReader reader = new StreamReader(resp.GetResponseStream());
 					string response = reader.ReadToEnd();
@@ -183,9 +206,8 @@ namespace PPCCAutoAuth
 						closing = (tryAgain.ToLower() == "no" || tryAgain.ToLower() == "n") ? true : false;
 						sleepTime = 0;
 					}
-				}
-				catch (Exception e)
-				{
+#if(!DEBUG)
+				} catch (Exception e) {
 					if (!(e.GetBaseException() is WebException))
 					{
 						Console.ForegroundColor = ConsoleColor.Red;
@@ -206,6 +228,7 @@ namespace PPCCAutoAuth
 						Console.ReadKey();
 					}
 				}
+#endif
 			}
 			return false;
 		}
@@ -214,6 +237,9 @@ namespace PPCCAutoAuth
 		#region Check Connection
 		static void checkConnection()
 		{
+#if(!DEBUG)
+			try {
+#endif
 			if (wifi == null)
 			{
 				foreach (WlanClient.WlanInterface wlanInt in wlan.Interfaces)
@@ -251,9 +277,27 @@ namespace PPCCAutoAuth
 					sleepTime = 1000;
 				}
 			}
+#if(!DEBUG)
+			} catch (Exception e) {
+				
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine("!-- Unable to query the Wireless NIC. Shutting down --!");
+				Console.ForegroundColor = ConsoleColor.Gray;
+				closing = true;
+			}
+#endif
 		}
 #endregion
-
+		#region Has IP
+		static Boolean hasIP()
+		{
+			if (wifi.NetworkInterface.GetIPProperties().UnicastAddresses[1].Address.Equals(null))
+				return false;
+			if (wifi.NetworkInterface.GetIPProperties().UnicastAddresses[1].Address.ToString().StartsWith("169."))
+				return false;
+			return true;
+		}
+		#endregion
 		#region Ping
 		static Boolean Ping(string host)
 		{
@@ -262,7 +306,7 @@ namespace PPCCAutoAuth
 			System.Net.NetworkInformation.Ping pinger = new System.Net.NetworkInformation.Ping();
 			try
 			{
-				if (pinger.Send(host, 5000).Status == System.Net.NetworkInformation.IPStatus.Success)
+				if (pinger.Send(host, 1000).Status == System.Net.NetworkInformation.IPStatus.Success)
 					return true;
 			}
 			catch (Exception e)
@@ -276,7 +320,7 @@ namespace PPCCAutoAuth
 		#region Spinner
 		static void Spinner(int pos)
 		{
-			Console.CursorLeft = pos;//52;
+			Console.CursorLeft = pos; //52;
 			switch (spinnerAni)
 			{
 				case 0:
@@ -321,7 +365,9 @@ namespace PPCCAutoAuth
 				}
 
 				if ((Wlan.WlanNotificationCodeMsm)notifyData.NotificationCode == Wlan.WlanNotificationCodeMsm.Connected)
+				{
 					checkConnection();
+				}
 			}
 		}
 		#endregion
